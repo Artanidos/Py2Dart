@@ -168,6 +168,20 @@ class Parser(ast.NodeVisitor):
     def visit_Gt(self, node, level):
         return ">"
 
+    def visit_Div(self, node, level):
+        return "/"
+
+    def visit_BinOp(self, node, level):
+        left = self.visit(node.left, level)
+        op = self.visit(node.op, level)
+        right = self.visit(node.right, level)
+        exp = "(" + left + op + right + ")"
+        return exp
+
+    def visit_Return(self, node, level):
+        code = " " * level * 4 + "return " + self.visit(node.value, level) + ";\n"
+        return code
+
     def visit_Compare(self, node, level):
         left = self.visit(node.left, level)
         op = self.visit(node.ops[0], level)
@@ -199,4 +213,21 @@ class Parser(ast.NodeVisitor):
                 code += self.visit(n, level + 1)
             code +=  " " * level * 4 + "}\n"
 
+        return code
+
+    def visit_Pass(self, node, level):
+        return ""
+
+    def visit_FunctionDef(self, node, level):
+        code = node.name + "("
+        i = 0
+        for arg in node.args.args:
+            if i > 0:
+                code += ","
+            code += arg.arg
+            i += 1
+        code += ") {\n"
+        for n in node.body:
+            code += self.visit(n, 1)
+        code += "}\n"
         return code

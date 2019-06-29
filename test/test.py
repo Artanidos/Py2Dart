@@ -1,6 +1,10 @@
+def do_something_strange(a, b):
+    ret = a / b
+    return ret
+
 if __name__ == "__main__":
     try:
-        do_something_strange();
+        do_something_strange(0, 3)
     except Exception:
         print("unable to import sys")
     finally:
