@@ -28,7 +28,7 @@ _VERSION = "1.0"
 
 def usage():
     print("Py2Dart " + _VERSION)
-    print("Usage: py2dart [options] file\n")
+    print("Usage: py2dart [options] [file] [> out]\n")
     print("Options:")
     print("-h --help      Display this information")
     print("-v --version   Display the program version")
